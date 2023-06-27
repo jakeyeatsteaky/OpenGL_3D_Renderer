@@ -19,6 +19,7 @@ public:
 
 	virtual void Init() const = 0;
 	virtual void Render() const = 0;
+	virtual void Update() = 0;
 	virtual void OpenWindow() const = 0;
 	virtual void ClearScreen() const = 0;
 	virtual void SetupShaders() const = 0;

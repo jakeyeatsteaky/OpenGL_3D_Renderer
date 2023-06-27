@@ -4,7 +4,8 @@
 
 Mesh::Mesh(std::weak_ptr<Shader> shaderProgram, std::weak_ptr<Texture> meshTexture, bool diff):
 	m_shaderProgram(shaderProgram),
-	m_meshTexture(meshTexture)
+	m_meshTexture(meshTexture),
+	m_transMatrix(glm::mat4(1.0))
 {
 	float vertices[] = {
 		 0.5f,  0.5f, 0.0f,
@@ -58,10 +59,15 @@ Mesh::Mesh(std::weak_ptr<Shader> shaderProgram, std::weak_ptr<Texture> meshTextu
 	m_vao.ClearFromBinding();
 }
 
+void Mesh::InitMesh()
+{
+
+}
+
 void Mesh::Bind() {
 	m_vao.Bind();
 }
-
+ 
 void Mesh::SetShader()
 {
 	std::shared_ptr<Shader> shadProg = m_shaderProgram.lock();
@@ -85,8 +91,27 @@ void Mesh::Draw()
 
 void Mesh::Render()
 {
-	SetTexture();
 	SetShader();
+	SetTexture();
 	Bind();
 	Draw();
+}
+
+void Mesh::Update()
+{
+	SetUniforms();
+}
+
+void Mesh::SetUniforms()
+{
+	std::shared_ptr<Shader> shader = m_shaderProgram.lock();
+	if(shader)
+	{
+		shader->setMat4Uniform("transform", m_transMatrix);
+	}
+}
+
+void Mesh::SetTransMatrix(glm::mat4 trans)
+{
+	m_transMatrix = trans;
 }

@@ -1,5 +1,8 @@
 #include "RendererAPI.h"
 #include "Texture.h"
+#include "glm/glm/glm.hpp"
+#include "glm/glm/gtc/matrix_transform.hpp"
+#include "glm/glm/gtc/type_ptr.hpp"
 
 // =================================== RENDERER_OPEN_GL ===================================
 Renderer_GL::Renderer_GL() : 
@@ -45,6 +48,17 @@ void Renderer_GL::Render() const {
 	m_mesh->Render();
 	
 	SDL_GL_SwapWindow(m_window);
+}
+
+void Renderer_GL::Update() 
+{
+	float time = static_cast<float>(SDL_GetTicks())/1000;
+	glm::mat4 trans = glm::mat4(1.0f);
+	trans = glm::rotate(trans, time, glm::vec3(0.0,0.0,1.0));
+	trans = glm::scale(trans, glm::vec3(0.5f, 0.5f, 0.5f));
+
+	m_mesh->SetTransMatrix(trans);
+	m_mesh->Update();
 }
 
 void Renderer_GL::OpenWindow() const {
@@ -147,6 +161,11 @@ void Renderer_Vulk::Render() const {
 
 }
 
+void Renderer_Vulk::Update() 
+{
+
+}
+
 void Renderer_Vulk::OpenWindow() const {
 
 }
@@ -187,6 +206,11 @@ void Renderer_DX::Render() const {
 }
 
 void Renderer_DX::OpenWindow() const {
+
+}
+
+void Renderer_DX::Update() 
+{
 
 }
 

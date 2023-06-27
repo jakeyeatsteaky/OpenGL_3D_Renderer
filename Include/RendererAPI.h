@@ -38,6 +38,7 @@ public:
 	// RenderInterface virtual functions
 	virtual void Init() const override;
 	virtual void Render() const override;
+	virtual void Update() override;
 	virtual void OpenWindow() const override;
 	virtual void ClearScreen() const override;
 	virtual void SetupShaders() const override;
@@ -63,6 +64,7 @@ public:
 	virtual ~Renderer_Vulk();
 	virtual void Init() const override;
 	virtual void Render() const override;
+	virtual void Update() override;
 	virtual void OpenWindow() const override;
 	virtual void ClearScreen() const override;
 	virtual void SetupShaders() const override;
@@ -75,6 +77,7 @@ public:
 	virtual ~Renderer_DX();
 	virtual void Init() const override;
 	virtual void Render() const override;
+	virtual void Update() override;
 	virtual void OpenWindow() const override;
 	virtual void ClearScreen() const override;
 	virtual void SetupShaders() const override;

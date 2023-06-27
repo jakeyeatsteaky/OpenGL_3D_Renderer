@@ -53,9 +53,7 @@ void App::Input()
 
 void App::Update()
 {
-    /*
-        Update Renderer Subsystem
-    */
+   m_renderer->Update(); 
 }
 
 void App::Render()
