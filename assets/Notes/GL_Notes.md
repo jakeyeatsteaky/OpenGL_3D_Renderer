@@ -55,3 +55,20 @@ Transformations:
         - angle in radians = angle in degress * (pi/180)
 
 }
+
+
+Coordinate Systems
+{
+    - After each vertex shader run, OpenGL expects all vertices to be in Normalized Device Coordinates. [-1.0, 1.0]
+
+    - Usually this is done by specifying a coordinate space ourselves (world space), transform into NDC in the vertex shader, then on rasterization, they are transformed to screen space (2d)
+                                   camera
+    - Local Space - World Space - View Space - Clip Space - Screen Space
+          
+    Local Space -> [Model Matrix] -> World Space
+    World Space -> [View Matrix] -> View Space
+    View Space -> [Projection Matrix] -> Clip Space
+
+    Vclip =  Mproj * Mview * Mmodel * Vlocal
+
+}

@@ -41,6 +41,34 @@ void Renderer_GL::Init() const
 
 }
 
+void Renderer_GL::Input() const
+{
+
+}
+
+void Renderer_GL::Update() 
+{
+	m_mesh->SetShader();
+
+	float time = static_cast<float>(SDL_GetTicks())/1000;
+	glm::mat4 model = glm::mat4(1.0f);
+	glm::mat4 view = glm::mat4(1.0f);
+	glm::mat4 projection = glm::mat4(1.0f);
+
+	model 	   = glm::rotate(model, time * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f)); 
+	view  	   = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+    projection = glm::perspective(glm::radians(45.0f), (float)Renderer::WindowWidth / (float)Renderer::WindowHeight, 0.1f, 100.0f);
+        
+	unsigned int modelLoc = glGetUniformLocation(m_mesh->GetShader()->getID(), "model");
+    unsigned int viewLoc  = glGetUniformLocation(m_mesh->GetShader()->getID(), "view");
+	unsigned int projLoc   = glGetUniformLocation(m_mesh->GetShader()->getID(), "projection");
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
+	glUniformMatrix4fv(projLoc, 1, GL_FALSE, &projection[0][0]);
+    
+}
+
 void Renderer_GL::Render() const {
 
 	ClearScreen();
@@ -50,16 +78,6 @@ void Renderer_GL::Render() const {
 	SDL_GL_SwapWindow(m_window);
 }
 
-void Renderer_GL::Update() 
-{
-	float time = static_cast<float>(SDL_GetTicks())/1000;
-	glm::mat4 trans = glm::mat4(1.0f);
-	trans = glm::rotate(trans, time, glm::vec3(0.0,0.0,1.0));
-	trans = glm::scale(trans, glm::vec3(0.5f, 0.5f, 0.5f));
-
-	m_mesh->SetTransMatrix(trans);
-	m_mesh->Update();
-}
 
 void Renderer_GL::OpenWindow() const {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -166,6 +184,11 @@ void Renderer_Vulk::Update()
 
 }
 
+void Renderer_Vulk::Input() const
+{
+
+}
+
 void Renderer_Vulk::OpenWindow() const {
 
 }
@@ -224,6 +247,11 @@ void Renderer_DX::SetupShaders() const
 }
 
 void Renderer_DX::SetupTextures() const
+{
+
+}
+
+void Renderer_DX::Input() const
 {
 
 }

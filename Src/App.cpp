@@ -59,7 +59,6 @@ void App::Update()
 void App::Render()
 {
     m_renderer->Render();
-
 }
 
 void App::Destroy()

@@ -37,6 +37,7 @@ public:
 	
 	// RenderInterface virtual functions
 	virtual void Init() const override;
+	virtual void Input() const override;
 	virtual void Render() const override;
 	virtual void Update() override;
 	virtual void OpenWindow() const override;
@@ -63,6 +64,7 @@ public:
 	Renderer_Vulk();
 	virtual ~Renderer_Vulk();
 	virtual void Init() const override;
+	virtual void Input() const override;
 	virtual void Render() const override;
 	virtual void Update() override;
 	virtual void OpenWindow() const override;
@@ -76,6 +78,7 @@ public:
 	Renderer_DX();
 	virtual ~Renderer_DX();
 	virtual void Init() const override;
+	virtual void Input() const override;
 	virtual void Render() const override;
 	virtual void Update() override;
 	virtual void OpenWindow() const override;

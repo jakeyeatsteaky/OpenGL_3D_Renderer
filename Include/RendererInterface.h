@@ -18,6 +18,7 @@ public:
 	static std::unique_ptr<RendererInterface> MakeRenderer(RENDERER_API api);
 
 	virtual void Init() const = 0;
+	virtual void Input() const = 0;
 	virtual void Render() const = 0;
 	virtual void Update() = 0;
 	virtual void OpenWindow() const = 0;

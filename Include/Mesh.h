@@ -18,18 +18,20 @@ public:
 	void Draw();
 	void SetShader();
 	void SetTexture();
-	void SetUniforms();
-	void SetTransMatrix(glm::mat4 trans);
+	void SetUniforms(std::string matName);
+	void SetModelMatrix(glm::mat4 trans);
 	void Render();
 	void Update();
 	void InitMesh();
+	
+	std::shared_ptr<Shader> GetShader();
 
 
 private:
 	VertexArray m_vao;
 	std::weak_ptr<Shader> m_shaderProgram;
-	std::weak_ptr<Texture> m_meshTexture;
-	glm::mat4 m_transMatrix;
+	std::weak_ptr<Texture> m_meshTexture; 
+	glm::mat4 m_modelMatrix;
 };
 
 

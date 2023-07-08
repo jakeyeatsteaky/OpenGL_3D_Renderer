@@ -5,7 +5,7 @@
 Mesh::Mesh(std::weak_ptr<Shader> shaderProgram, std::weak_ptr<Texture> meshTexture, bool diff):
 	m_shaderProgram(shaderProgram),
 	m_meshTexture(meshTexture),
-	m_transMatrix(glm::mat4(1.0))
+	m_modelMatrix(glm::mat4(1.0))
 {
 	float vertices[] = {
 		 0.5f,  0.5f, 0.0f,
@@ -99,19 +99,31 @@ void Mesh::Render()
 
 void Mesh::Update()
 {
-	SetUniforms();
+	SetUniforms("model");
+	SetUniforms("view");
+	SetUniforms("projection");
 }
 
-void Mesh::SetUniforms()
+void Mesh::SetUniforms(std::string matName)
 {
 	std::shared_ptr<Shader> shader = m_shaderProgram.lock();
 	if(shader)
 	{
-		shader->setMat4Uniform("transform", m_transMatrix);
+		shader->setMat4Uniform(matName, m_modelMatrix);
 	}
 }
 
-void Mesh::SetTransMatrix(glm::mat4 trans)
+void Mesh::SetModelMatrix(glm::mat4 trans)
 {
-	m_transMatrix = trans;
+	m_modelMatrix = trans;
+}
+
+std::shared_ptr<Shader> Mesh::GetShader()
+{
+	std::shared_ptr<Shader> shader = m_shaderProgram.lock();
+	if(shader)
+		return shader;
+	std::cout << "ERROR: Could Not return Shader Program" << std::endl;
+	return nullptr;
+
 }
